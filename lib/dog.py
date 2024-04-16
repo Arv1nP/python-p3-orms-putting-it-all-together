@@ -40,9 +40,14 @@ class Dog:
 
     @classmethod
     def get_all(cls):
-        CURSOR.execute("SELECT * FROM dogs")
-        rows = CURSOR.fetchall()
-        return [cls(*row) for row in rows]
+      sql = "SELECT * FROM dogs"
+      rows = CURSOR.execute(sql).fetchall()
+      dogs = []
+      for row in rows:
+          dog = cls(*row)
+          dogs.append(dog)
+      return dogs
+
 
     @classmethod
     def find_by_name(cls, name):
